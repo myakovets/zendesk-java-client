@@ -80,13 +80,13 @@ import org.zendesk.client.v2.model.schedules.Schedule;
 import org.zendesk.client.v2.model.targets.BasecampTarget;
 import org.zendesk.client.v2.model.targets.CampfireTarget;
 import org.zendesk.client.v2.model.targets.EmailTarget;
+import org.zendesk.client.v2.model.targets.HttpTarget;
 import org.zendesk.client.v2.model.targets.PivotalTarget;
 import org.zendesk.client.v2.model.targets.Target;
 import org.zendesk.client.v2.model.targets.TwitterTarget;
 import org.zendesk.client.v2.model.targets.UrlTarget;
 import org.zendesk.client.v2.search.PageCondition;
 import org.zendesk.client.v2.search.PaginationBuilder;
-import org.zendesk.client.v2.search.SearchCriteriaBuilder;
 
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.UriTemplateBuilder;
@@ -135,6 +135,7 @@ public class Zendesk implements Closeable {
        result.put("basecamp_target", BasecampTarget.class);
        result.put("campfire_target", CampfireTarget.class);
        result.put("pivotal_target", PivotalTarget.class);
+       result.put("http_target", HttpTarget.class);
        result.put("twitter_target", TwitterTarget.class);
 
        // TODO: Implement other Target types
@@ -1616,7 +1617,7 @@ public class Zendesk implements Closeable {
                 handleSearchList("results"));
     }
 
-    public <T extends SearchResultEntity> Page<T> getSearchResults(Class<T> type, SearchCriteriaBuilder builder) {
+    public <T extends SearchResultEntity> Page<T> getSearchResults(Class<T> type, PaginationBuilder builder) {
         PagedIterable<T> pagedIterable = new PagedIterable<>(tmpl(builder.build()), handleList(type, "results"));
         return new Page<>(pagedIterable::getCount,
                 ofNullable(builder.getPageCondition())
