@@ -9,6 +9,7 @@ public class TicketSearchableProperty extends SearchableProperty {
     public static final SearchableProperty TYPE = new TicketSearchableProperty("type", EQ);
     public static final SearchableProperty TAGS = new TicketSearchableProperty("tags", EQ);
     public static final SearchableProperty REQUESTER = new TicketSearchableProperty("requester", EQ);
+    public static final SearchableProperty STATUS = new TicketSearchableProperty("status", EQ);
 
     private TicketSearchableProperty(String property, Operator... supportedOperators) {
         super(property, supportedOperators);
